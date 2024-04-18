@@ -2216,10 +2216,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@doist/react-interpolate@0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@doist/react-interpolate/-/react-interpolate-0.4.1.tgz#696d14e90ffc849e94a4e3e94578c5eade1590b8"
-  integrity sha512-JxBJMpDlXByMrA7T6Z+tRdCqXlbnM1ikfasLaqMrWvV4TvvrPuD7dngU/X01iP9tpAycfxasNvbNKFs/QehViQ==
+"@doist/react-interpolate@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@doist/react-interpolate/-/react-interpolate-1.1.0.tgz#3eba8d9c56f8ab3873af8996e4358efa001c9306"
+  integrity sha512-kH044V2rXhgkimGLAEXELrHo5A7is1C0+YiT8gtgtQ7ZE2M7nXh8i3mOHp38T1wQ0m+RYROQeanSx25TRFBfyw==
 
 "@ebay/nice-modal-react@1.2.13":
   version "1.2.13"
