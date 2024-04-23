@@ -205,7 +205,8 @@ class JobManager {
                 }
             }
 
-            if (at && !(at instanceof Date)) {
+            if (at && !(at instanceof Date) && typeof at === 'string') {
+                // this isCronExpression assumes a string and is not type safe...
                 if (isCronExpression(at)) {
                     schedule = later.parse.cron(at, true);
                 } else {

@@ -1,3 +1,4 @@
+const logging = require('@tryghost/logging');
 const isCronExpression = require('./is-cron-expression');
 
 /**
@@ -27,11 +28,13 @@ const assemble = (at, job, data, name) => {
         Object.assign(breeJob, {
             date: at
         });
-    } else if (at && isCronExpression(at)) {
+        // isCronExpression is not type safe and expects a string
+    } else if (at && typeof at === 'string' && isCronExpression(at)) {
         Object.assign(breeJob, {
             cron: at
         });
     } else if (at !== undefined) {
+        logging.info(`Using an interval schedule of ${at}ms for ${name}`);
         Object.assign(breeJob, {
             interval: at
         });

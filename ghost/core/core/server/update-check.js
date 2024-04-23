@@ -75,9 +75,12 @@ module.exports.scheduleRecurringJobs = () => {
     const s = Math.floor(Math.random() * 60); // 0-59
     const m = Math.floor(Math.random() * 60); // 0-59
     const h = Math.floor(Math.random() * 24); // 0-23
-
+    let at = `${s} ${m} ${h} * * *`; // Every day
+    if (config.get('updateCheck:testMode') === true) {
+        at = 60000; // provide in ms
+    }
     jobsService.addJob({
-        at: `${s} ${m} ${h} * * *`, // Every day
+        at,
         job: require('path').resolve(__dirname, 'run-update-check.js'),
         name: 'update-check'
     });
