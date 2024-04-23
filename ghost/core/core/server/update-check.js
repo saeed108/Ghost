@@ -76,7 +76,7 @@ module.exports.scheduleRecurringJobs = () => {
     const m = Math.floor(Math.random() * 60); // 0-59
     const h = Math.floor(Math.random() * 24); // 0-23
     let at = `${s} ${m} ${h} * * *`; // Every day
-    if (config.get('requestQueue:enabled') === true) {
+    if (config.get('optimization:requestQueue:enabled') === true) {
         at = 60000; // provide in ms
     }
     jobsService.addJob({
