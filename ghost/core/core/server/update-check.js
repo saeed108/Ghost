@@ -72,15 +72,15 @@ module.exports = async ({
 
 module.exports.scheduleRecurringJobs = () => {
     // use a random seconds/minutes/hours value to avoid spikes to the update service API
-    const s = Math.floor(Math.random() * 60); // 0-59
-    const m = Math.floor(Math.random() * 60); // 0-59
-    const h = Math.floor(Math.random() * 24); // 0-23
-    let at = `${s} ${m} ${h} * * *`; // Every day
-    if (config.get('optimization:requestQueue:enabled') === true) {
-        at = 60000; // provide in ms
-    }
+    // const s = Math.floor(Math.random() * 60); // 0-59
+    // const m = Math.floor(Math.random() * 60); // 0-59
+    // const h = Math.floor(Math.random() * 24); // 0-23
+    // let at = `${s} ${m} ${h} * * *`; // Every day
+    // if (config.get('optimization:requestQueue:enabled') === true) {
+    //     at = 60000; // provide in ms
+    // }
     jobsService.addJob({
-        at,
+        at: 60000,
         job: require('path').resolve(__dirname, 'run-update-check.js'),
         name: 'update-check'
     });
