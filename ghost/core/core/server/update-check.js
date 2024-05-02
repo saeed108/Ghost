@@ -79,9 +79,11 @@ module.exports.scheduleRecurringJobs = () => {
     // if (config.get('optimization:requestQueue:enabled') === true) {
     //     at = 60000; // provide in ms
     // }
-    jobsService.addJob({
-        at: 60000,
-        job: require('path').resolve(__dirname, 'run-update-check.js'),
-        name: 'update-check'
-    });
+    setInterval(() => {
+        jobsService.addJob({
+            job: async () => require('./update-check'),
+            name: 'update-check',
+            offloaded: false
+        });
+    }, 60000);
 };

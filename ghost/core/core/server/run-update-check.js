@@ -47,8 +47,10 @@ if (parentPort) {
 
     await updateCheck({
         rethrowErrors: true,
-        forceUpdate: workerData.forceUpdate,
-        updateCheckUrl: workerData.updateCheckUrl
+        // forceUpdate: workerData.forceUpdate,
+        forceUpdate: true,
+        // updateCheckUrl: workerData.updateCheckUrl
+        updateCheckUrl: 'https://updates.ghost.org'
     });
 
     postParentPortMessage(`Ran update check`);
