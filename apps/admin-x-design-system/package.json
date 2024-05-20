@@ -57,6 +57,8 @@
     "@dnd-kit/sortable": "7.0.2",
     "@ebay/nice-modal-react": "1.2.13",
     "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-form": "^0.0.3",
+    "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@sentry/react": "7.112.1",
