@@ -210,7 +210,7 @@ module.exports = class EmailAnalyticsService {
         fetchData.lastStarted = new Date();
         fetchData.lastBegin = begin;
 
-        let lastAggregation = Date.now();
+        // let lastAggregation = Date.now();
         let eventCount = 0;
 
         // We keep the processing result here, so we also have a result in case of failures
@@ -224,18 +224,18 @@ module.exports = class EmailAnalyticsService {
 
             // Every 5 minutes or 5000 members we do an aggregation and clear the processingResult
             // Otherwise we need to loop a lot of members afterwards, and this takes too long without updating the stat counts in between
-            if (Date.now() - lastAggregation > 5 * 60 * 1000 || processingResult.memberIds.length > 5000) {
-                // Aggregate and clear the processingResult
-                // We do this here because otherwise it could take a long time before the new events are visible in the stats
-                try {
-                    await this.aggregateStats(processingResult);
-                    lastAggregation = Date.now();
-                    processingResult = new EventProcessingResult();
-                } catch (err) {
-                    logging.error('[EmailAnalytics] Error while aggregating stats');
-                    logging.error(err);
-                }
-            }
+            // if (Date.now() - lastAggregation > 5 * 60 * 1000 || processingResult.memberIds.length > 5000) {
+            //     // Aggregate and clear the processingResult
+            //     // We do this here because otherwise it could take a long time before the new events are visible in the stats
+            //     try {
+            //         await this.aggregateStats(processingResult);
+            //         lastAggregation = Date.now();
+            //         processingResult = new EventProcessingResult();
+            //     } catch (err) {
+            //         logging.error('[EmailAnalytics] Error while aggregating stats');
+            //         logging.error(err);
+            //     }
+            // }
 
             if (fetchData.canceled) {
                 throw new errors.InternalServerError({
@@ -261,16 +261,16 @@ module.exports = class EmailAnalyticsService {
         }
 
         // Aggregate
-        try {
-            await this.aggregateStats(processingResult);
-        } catch (err) {
-            logging.error('[EmailAnalytics] Error while aggregating stats');
-            logging.error(err);
+        // try {
+        //     await this.aggregateStats(processingResult);
+        // } catch (err) {
+        //     logging.error('[EmailAnalytics] Error while aggregating stats');
+        //     logging.error(err);
 
-            if (!error) {
-                error = err;
-            }
-        }
+        //     if (!error) {
+        //         error = err;
+        //     }
+        // }
 
         // Small trick: if reached the end of new events, we are going to keep
         // fetching the same events because 'begin' won't change
