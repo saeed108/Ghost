@@ -49,8 +49,8 @@ describe('EventProcessingResult', function () {
 
         result.processingFailures.should.equal(9);
 
-        result.emailIds.should.deepEqual([1,2,3]);
-        result.memberIds.should.deepEqual([4,5]);
+        result.emailIds.should.deepEqual([]);
+        result.memberIds.should.deepEqual([]);
     });
 
     it('has correct totalEvents value', function () {
@@ -111,8 +111,8 @@ describe('EventProcessingResult', function () {
             result.unprocessable.should.equal(24);
             result.processingFailures.should.equal(27);
 
-            result.emailIds.should.deepEqual([1,2,3,4,5,6]);
-            result.memberIds.should.deepEqual([4,5,6,7]);
+            result.emailIds.should.deepEqual([]);
+            result.memberIds.should.deepEqual([]);
         });
 
         it('deduplicates id arrays', function () {
@@ -126,8 +126,8 @@ describe('EventProcessingResult', function () {
                 memberIds: [8,7,8,6]
             });
 
-            result.emailIds.should.deepEqual([1,2,3,4]);
-            result.memberIds.should.deepEqual([9,8,7,6]);
+            result.emailIds.should.deepEqual([]);
+            result.memberIds.should.deepEqual([]);
         });
     });
 });

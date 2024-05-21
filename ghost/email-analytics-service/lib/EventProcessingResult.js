@@ -59,8 +59,8 @@ class EventProcessingResult {
 
         this.processingFailures += other.processingFailures || 0;
 
-        this.emailIds = _.compact(_.union(this.emailIds, other.emailIds || []));
-        this.memberIds = _.compact(_.union(this.memberIds, other.memberIds || []));
+        this.emailIds = [];
+        this.memberIds = [];
     }
 }
 
