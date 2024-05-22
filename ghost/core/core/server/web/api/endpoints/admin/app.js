@@ -11,6 +11,7 @@ const sentry = require('../../../../../shared/sentry');
 const routes = require('./routes');
 const APIVersionCompatibilityService = require('../../../../services/api-version-compatibility');
 const GhostNestApp = require('@tryghost/ghost');
+const logging = require('@tryghost/logging');
 
 /**
  * @returns {import('express').Application}
@@ -41,7 +42,7 @@ module.exports = function setupApiApp() {
     apiApp.use(async function nestApp(req, res, next) {
         if (labs.isSet('NestPlayground') || labs.isSet('ActivityPub')) {
             const originalExpressApp = req.app;
-            const app = await GhostNestApp.getApp();
+            const app = await GhostNestApp.getApp(logging);
 
             const instance = app.getHttpAdapter().getInstance();
             instance(Object.assign({}, req, {

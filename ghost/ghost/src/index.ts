@@ -2,22 +2,24 @@ import 'reflect-metadata';
 import {AppModule} from './nestjs/modules/app.module';
 import {NestApplication, NestFactory} from '@nestjs/core';
 import {registerEvents} from './common/decorators/handle-event.decorator';
-import {ClassProvider, ValueProvider} from '@nestjs/common';
+import {ClassProvider, Logger, ValueProvider} from '@nestjs/common';
 
 let _app: NestApplication;
 
-export async function create() {
-    const app = await NestFactory.create<NestApplication>(AppModule);
+export async function create(logger?: Logger) {
+    const app = await NestFactory.create<NestApplication>(AppModule, {
+        logger
+    });
     const DomainEvents = await app.resolve('DomainEvents');
     registerEvents(app as NestApplication, DomainEvents);
     return app;
 }
 
-export async function getApp() {
+export async function getApp(logger?: Logger) {
     if (_app) {
         return _app;
     }
-    _app = await create();
+    _app = await create(logger);
     await _app.init();
     return _app;
 }

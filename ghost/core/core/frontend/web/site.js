@@ -4,6 +4,7 @@ const express = require('../../shared/express');
 const DomainEvents = require('@tryghost/domain-events');
 const {MemberPageViewEvent} = require('@tryghost/member-events');
 const GhostNestApp = require('@tryghost/ghost');
+const logging = require('@tryghost/logging');
 
 // App requires
 const config = require('../../shared/config');
@@ -69,7 +70,7 @@ module.exports = function setupSiteApp(routerConfig) {
     siteApp.use(async function nestApp(req, res, next) {
         if (labs.isSet('NestPlayground') || labs.isSet('ActivityPub')) {
             const originalExpressApp = req.app;
-            const app = await GhostNestApp.getApp();
+            const app = await GhostNestApp.getApp(logging);
 
             const instance = app.getHttpAdapter().getInstance();
             instance(req, res, function (err) {
