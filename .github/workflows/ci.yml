@@ -32,3 +32,17 @@ jobs:
     - name: Echo completion  # Describes the job step
       run: echo "Build and test steps completed."  # Outputs completion text
 
+# Deployment step
+deploy:
+  needs: build_and_test
+  runs-on: ubuntu-latest
+  if: github.ref == 'refs/heads/main'
+  steps:
+    - uses: actions/checkout@v2
+    - name: Setup SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Deploy to Server
+      run: ssh -o StrictHostKeyChecking=no saeed108@37.27.47.155 "cd ~/Ghost && git pull && npm install && npm start"
+
