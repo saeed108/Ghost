@@ -1,48 +1,32 @@
-name: CI  # Name of the GitHub Actions Workflow
+name: CI
 
-# Defines when the workflow should run
 on:
-  pull_request:
   push:
     branches:
       - main
-      - arch
-      - 'v5.*'
-      - 3.x
+  pull_request:
+    branches:
+      - main
 
-# Defines the jobs to run
 jobs:
-  build_and_test:
-    runs-on: ubuntu-latest  # Specifies the runner environment
-
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2  # Checks out your repository under $GITHUB_WORKSPACE
-
-    - name: Set up Node.js  # Describes the job step
-      uses: actions/setup-node@v1  # Sets up Node environment
-      with:
-        node-version: '14'  # Specifies the Node.js version to use
-
-    - name: Install dependencies  # Describes the job step
-      run: npm install  # Installs project dependencies
-
-    - name: Run build  # Describes the job step
-      run: echo "npm run build" # Placeholder for the build command
-
-    - name: Echo completion  # Describes the job step
-      run: echo "Build and test steps completed."  # Outputs completion text
-
-# Deployment step
-deploy:
-  needs: build_and_test
-  runs-on: ubuntu-latest
-  if: github.ref == 'refs/heads/main'
-  steps:
-    - uses: actions/checkout@v2
-    - name: Setup SSH key
-      uses: webfactory/ssh-agent@v0.5.3
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up SSH key
+      uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    - name: Deploy to Server
-      run: ssh -o StrictHostKeyChecking=no saeed108@37.27.47.155 "cd ~/Ghost && git pull && npm install && npm start"
-
+        
+    - name: Test SSH connection
+      run: ssh -o StrictHostKeyChecking=no saeed108@37.27.47.155 "echo Connection Successful"
+      
+    - name: Deploy application
+      run: |
+        ssh saeed108@37.27.47.155 << 'EOF'
+          cd ~/Ghost
+          git pull origin main
+          # Add additional commands needed for deployment
+        EOF
