@@ -1,0 +1,32 @@
+# CI/CD pipeline for Ghost
+
+stages:
+  - build
+  - test
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+build_job:
+  stage: build
+  script:
+    - echo "Installing dependencies..."
+    - npm install
+    - echo "Dependencies installed."
+
+test_job:
+  stage: test
+  script:
+    - echo "Running placeholder tests..."
+    # You would add actual test commands here in a real scenario
+    - echo "Tests completed."
+
+deploy_job:
+  stage: deploy
+  script:
+    - echo "Deploying application..."
+    # Deployment commands would go here
+    - echo "Application deployed."
+
