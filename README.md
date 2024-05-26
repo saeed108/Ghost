@@ -94,7 +94,7 @@ You can find answers to a huge variety of questions, along with a large communit
 
 To stay up to date with all the latest news and product updates, make sure you [subscribe to our blog](https://ghost.org/blog/) — or you can always follow us [on Twitter](https://twitter.com/Ghost), if you prefer your updates bite-sized and facetious. :saxophone::turtle:
 
-<!-- Added to test CI workflow!!!!! -->
+<!-- Added to test CI workflow!!!!!! -->
 
 &nbsp;
 

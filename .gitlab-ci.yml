@@ -61,7 +61,7 @@ jobs:
             npm install -g yarn
             yarn install --legacy-peer-deps
             yarn build
-            yarn start
+            yarn dev
             echo "Application deployed."
           EOF
-
+01~
