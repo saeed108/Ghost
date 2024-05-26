@@ -1,32 +1,54 @@
-# CI/CD pipeline for Ghost
+# CI/CD pipeline for Ghost application on GitLab
 
 stages:
   - build
   - test
   - deploy
 
+# Cache node_modules to speed up builds
 cache:
   paths:
     - node_modules/
 
+# Build job: Install dependencies
 build_job:
   stage: build
+  image: node:14 # Use a specific Node.js version image
   script:
     - echo "Installing dependencies..."
     - npm install
     - echo "Dependencies installed."
 
+# Test job: Placeholder for running tests
 test_job:
   stage: test
+  image: node:14
   script:
     - echo "Running placeholder tests..."
-    # You would add actual test commands here in a real scenario
     - echo "Tests completed."
 
+# Deployment job: Deploy the application using SSH
 deploy_job:
   stage: deploy
+  before_script:
+    - 'apt-get update -y && apt-get install -y openssh-client'  # Ensure ssh is available
+    - eval $(ssh-agent -s)  # Start the SSH agent
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -  # Add SSH key from GitLab secret
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -H "37.27.47.155" >> ~/.ssh/known_hosts  # Add server to known hosts
+    - chmod 644 ~/.ssh/known_hosts
   script:
     - echo "Deploying application..."
-    # Deployment commands would go here
+    - ssh -o StrictHostKeyChecking=no root@37.27.47.155 "cd /root/Ghost && git pull && npm install && npm start"
     - echo "Application deployed."
+  environment:
+    name: production
+    url: http://37.27.47.155
+  only:
+    - main  # Deployment triggers only on changes to the main branch
+
+# GitLab CI/CD Variables
+variables:
+  SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY  # Ensure this is set in your GitLab CI/CD settings under 'CI / CD' > 'Variables'
 
