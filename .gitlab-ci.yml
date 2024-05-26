@@ -1,54 +1,68 @@
-# CI/CD pipeline for Ghost application on GitLab
+name: Build and Deploy
 
-stages:
-  - build
-  - test
-  - deploy
+# Trigger this workflow on pushes to the main branch
+on:
+  push:
+    branches:
+      - main
 
-# Cache node_modules to speed up builds
-cache:
-  paths:
-    - node_modules/
+jobs:
+  # Build Job: Install dependencies
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-# Build job: Install dependencies
-build_job:
-  stage: build
-  image: node:14 # Use a specific Node.js version image
-  script:
-    - echo "Installing dependencies..."
-    - npm install
-    - echo "Dependencies installed."
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-# Test job: Placeholder for running tests
-test_job:
-  stage: test
-  image: node:14
-  script:
-    - echo "Running placeholder tests..."
-    - echo "Tests completed."
+      # Step 3: Install project dependencies
+      - name: Install dependencies
+        run: npm install
 
-# Deployment job: Deploy the application using SSH
-deploy_job:
-  stage: deploy
-  before_script:
-    - 'apt-get update -y && apt-get install -y openssh-client'  # Ensure ssh is available
-    - eval $(ssh-agent -s)  # Start the SSH agent
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -  # Add SSH key from GitLab secret
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan -H "37.27.47.155" >> ~/.ssh/known_hosts  # Add server to known hosts
-    - chmod 644 ~/.ssh/known_hosts
-  script:
-    - echo "Deploying application..."
-    - ssh -o StrictHostKeyChecking=no root@37.27.47.155 "cd /root/Ghost && git pull && npm install && npm start"
-    - echo "Application deployed."
-  environment:
-    name: production
-    url: http://37.27.47.155
-  only:
-    - main  # Deployment triggers only on changes to the main branch
+  # Test Job: Run placeholder tests
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-# GitLab CI/CD Variables
-variables:
-  SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY  # Ensure this is set in your GitLab CI/CD settings under 'CI / CD' > 'Variables'
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Step 3: Run tests (placeholder for actual tests)
+      - name: Run tests
+        run: echo "Running placeholder tests... Tests completed."
+
+  # Deploy Job: Deploy the application to the server
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up SSH to connect to the server
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # Step 3: Deploy the application
+      - name: Deploy application
+        run: |
+          echo "Deploying application..."
+          ssh -o StrictHostKeyChecking=no root@37.27.47.155 "cd /root/Ghost && git pull && npm install && npm start"
+          echo "Application deployed."
 
