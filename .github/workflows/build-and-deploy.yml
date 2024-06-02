@@ -15,7 +15,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'  # Sets up the Node.js version to use.
+        node-version: '18.12.0'  # Sets up Node.js version 18.12.0 to use, aligning with dependencies requirements.
 
     - name: Install Dependencies
       run: yarn install  # Installs dependencies defined in package.json.
