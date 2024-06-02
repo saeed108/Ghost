@@ -1,0 +1,40 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # Triggers the workflow on push events to the main branch.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # The type of runner that the job will run on.
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2  # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it.
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20.11.1'  # Sets up Node.js version to align with dependency requirements.
+
+    - name: Install Dependencies
+      run: yarn install  # Installs dependencies defined in package.json.
+
+    - name: Adding SSH key
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Uses your secret stored in GitHub.
+
+    - name: Deploy to Server
+      run: |
+        ssh -o StrictHostKeyChecking=no root@37.27.47.155 << 'EOF'
+        cd /root/Ghost
+        git pull origin main
+        yarn install  # Install any new dependencies.
+        pm2 start ecosystem.config.js || pm2 reload ecosystem.config.js --update-env  # Start or reload the application using PM2.
+        EOF
+
+    - name: Clean up
+      run: echo "Deployment complete."
+
