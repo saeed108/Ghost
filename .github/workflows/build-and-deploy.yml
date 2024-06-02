@@ -7,31 +7,31 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # The type of runner that the job will run on.
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # Make sure to check if a newer version is available
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '18.12.0'
+        node-version: '20.11.1'  # Updated to the latest compatible Node.js version
 
     - name: Install Dependencies
-      run: yarn install
+      run: yarn install  # Installs dependencies defined in package.json.
 
     - name: Adding SSH key
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Uses your secret stored in GitHub.
 
     - name: Deploy to Server
       run: |
         ssh -o StrictHostKeyChecking=no root@37.27.47.155 << 'EOF'
         cd /root/Ghost
         git pull origin main
-        yarn install
-        pm2 restart all
+        yarn install  # Install any new dependencies.
+        pm2 restart all  # Restart the application using PM2 or similar command.
         EOF
 
     - name: Clean up
