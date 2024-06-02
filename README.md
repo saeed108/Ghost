@@ -1,3 +1,50 @@
+```markdown
+# Ghost Application - DevOps Integration
+
+Welcome to the enhanced version of Ghost, an open-source blogging platform. This repository is a fork from the original Ghost repository, tailored to incorporate DevOps practices for improved development, testing, and deployment processes.
+
+## About This Fork
+
+This version of Ghost has been modified to include automated workflows using GitHub Actions, ensuring continuous integration and deployment. Additional tooling includes Docker for containerization, Ansible for configuration management, and Terraform for infrastructure as code.
+
+## New Features
+
+- CI/CD Pipeline: Implementation of GitHub Actions to automate testing and deployment.
+- Docker Integration: Containerization of Ghost for consistent development and production environments.
+- Ansible and Terraform: Automated setup and management of the infrastructure, enhancing scalability and reliability.
+
+## Getting Started
+
+To get started with this enhanced version of Ghost, follow these steps:
+
+1. Clone the Repository:
+
+2. Run Docker Containers:
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Automate Infrastructure**:
+   ```bash
+   terraform init
+   terraform apply
+   ```
+
+4. **Access and Configure**:
+   - Access the Ghost admin panel at `http://localhost:2368/ghost`.
+   - Follow the on-screen instructions to complete the setup.
+
+## Contributing
+
+Contributions to this project are welcome! Please refer to the original Ghost documentation for guidelines on contributions and pull requests.
+
+## License
+
+This project is licensed under the MIT License.
+
+For more information on the original Ghost platform, please visit https://github.com/TryGhost/Ghost .
+previ```
+
 &nbsp;
 <p align="center">
   <a href="https://ghost.org/#gh-light-mode-only" target="_blank">
