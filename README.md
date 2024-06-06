@@ -50,23 +50,23 @@ For more information on the original Ghost platform, please visit https://github
 This project focuses on streamlining the development, testing, and deployment processes of the Ghost open-source blogging platform using a comprehensive set of DevOps tools. The main objective is to enhance efficiency and reliability through automation, leveraging tools like GitHub, Terraform, Ansible, Docker, and various monitoring solutions.
 
 ## Introduction
-- **Background**: Chosen for its efficiency and suitability for DevOps practices, Ghost runs on Node.js, promoting fast, scalable deployments and community-driven improvements.
-- **Purpose**: To automate the complete lifecycle of the Ghost application from integration to deployment, ensuring seamless updates and scalability.
-- **Scope**: The project uses an integrated suite of technologies to manage and automate tasks efficiently.
+- Background: Chosen for its efficiency and suitability for DevOps practices, Ghost runs on Node.js, promoting fast, scalable deployments and community-driven improvements.
+- Purpose: To automate the complete lifecycle of the Ghost application from integration to deployment, ensuring seamless updates and scalability.
+- Scope: The project uses an integrated suite of technologies to manage and automate tasks efficiently.
 
 ## Method and Implementation
-- **Tools**:
-  - **GitHub Actions**: Manages CI/CD workflows, automating deployments and testing.
-  - **Terraform**: Provides infrastructure as code, enhancing consistency across environments.
-  - **Ansible**: Automates configuration and management of monitoring tools and updates.
-  - **Docker**: Ensures consistent environments across development, testing, and production through containerization.
+- Tools:
+  - GitHub Actions: Manages CI/CD workflows, automating deployments and testing.
+  - Terraform: Provides infrastructure as code, enhancing consistency across environments.
+  - Ansible: Automates configuration and management of monitoring tools and updates.
+  - Docker: Ensures consistent environments across development, testing, and production through containerization.
 
 ## Accessibility
-- Manage configurations and CI/CD processes via the [GitHub Repository](https://github.com/saeed108/Ghost/).
+- Manage configurations and CI/CD processes via https://github.com/saeed108/Ghost/
 
 ## Monitoring and Observability
-- **Tools**: Utilizes Prometheus for system monitoring and Grafana for visualization, providing insights into system health and performance.
-- **Accessibility**:
+- Tools: Utilizes Prometheus for system monitoring and Grafana for visualization, providing insights into system health and performance.
+- Accessibility:
   - Prometheus
   - Grafana Dashboard: Node Exporter Full - Available on the server
 
@@ -77,15 +77,15 @@ This project focuses on streamlining the development, testing, and deployment pr
 - The project successfully integrates advanced DevOps tools to automate the deployment and monitoring of the Ghost blogging platform, significantly enhancing operational efficiency and system reliability.
 
 ## References
-- Terraform: [terraform.io](https://terraform.io)
-- Ansible: [ansible.com](https://ansible.com)
-- Docker: [docker.com](https://docker.com)
-- GitHub Actions: [GitHub Docs](https://docs.github.com/en/actions)
-- Prometheus and Grafana: [prometheus.io](https://prometheus.io) and [grafana.com](https://grafana.com)
+- Terraform: https://terraform.io
+- Ansible: https://ansible.com
+- Docker: https://docker.com
+- GitHub Actions: https://docs.github.com/en/actions
+- Prometheus and Grafana: prometheus.io and https://grafana.com
 
 ## Appendices
 - Access the Ghost Blog
-- GitHub Repository: [Visit Repo](https://github.com/saeed108/Ghost)
+- GitHub Repository: https://github.com/saeed108/Ghost
 - Monitoring Interfaces:
   - Prometheus
   - Grafana Dashboard: Node Exporter Full
